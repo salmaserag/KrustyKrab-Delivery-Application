@@ -3,9 +3,9 @@
  */
 package com.zodic.krustykrab.application.utils;
 
+import com.zodic.krustykrab.application.database.DAO.UserDAO;
 import com.zodic.krustykrab.application.models.Role;
 import com.zodic.krustykrab.application.models.User;
-import com.zodic.krustykrab.application.database.DAO.UserDAO;
 
 public class AuthenticationManager {
     private UserDAO userDAO;

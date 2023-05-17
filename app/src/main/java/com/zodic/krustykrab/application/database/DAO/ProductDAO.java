@@ -5,7 +5,6 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
-
 import com.zodic.krustykrab.application.database.DatabaseConstants;
 import com.zodic.krustykrab.application.database.DatabaseHelper;
 import com.zodic.krustykrab.application.models.Category;
@@ -54,7 +53,7 @@ public class ProductDAO {
         Product product = null;
 
         String selection = DatabaseConstants.COLUMN_ID + " = ?";
-        String[] selectionArgs = { String.valueOf(productId) };
+        String[] selectionArgs = {String.valueOf(productId)};
 
         Cursor cursor = database.query(
                 DatabaseConstants.TABLE_PRODUCTS,
@@ -140,7 +139,7 @@ public class ProductDAO {
         values.put(DatabaseConstants.COLUMN_PRODUCT_IMAGE, product.getImagePath());
 
         String whereClause = DatabaseConstants.COLUMN_ID + " = ?";
-        String[] whereArgs = { String.valueOf(product.getId()) };
+        String[] whereArgs = {String.valueOf(product.getId())};
 
         int rowsAffected = database.update(DatabaseConstants.TABLE_PRODUCTS, values, whereClause, whereArgs);
         if (rowsAffected > 0) {
@@ -160,7 +159,7 @@ public class ProductDAO {
      */
     public int deleteProduct(Product product) {
         String whereClause = DatabaseConstants.COLUMN_ID + " = ?";
-        String[] whereArgs = { String.valueOf(product.getId()) };
+        String[] whereArgs = {String.valueOf(product.getId())};
 
         int rowsAffected = database.delete(DatabaseConstants.TABLE_PRODUCTS, whereClause, whereArgs);
         if (rowsAffected > 0) {
@@ -183,7 +182,7 @@ public class ProductDAO {
         List<Product> products = new ArrayList<>();
 
         String selection = DatabaseConstants.COLUMN_PRODUCT_CATEGORY + " = ?";
-        String[] selectionArgs = { category.toString() };
+        String[] selectionArgs = {category.toString()};
 
         Cursor cursor = database.query(
                 DatabaseConstants.TABLE_PRODUCTS,

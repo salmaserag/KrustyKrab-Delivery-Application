@@ -5,11 +5,10 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
-
+import com.zodic.krustykrab.application.database.DatabaseConstants;
 import com.zodic.krustykrab.application.database.DatabaseHelper;
 import com.zodic.krustykrab.application.models.Role;
 import com.zodic.krustykrab.application.models.User;
-import com.zodic.krustykrab.application.database.DatabaseConstants;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,7 +60,7 @@ public class UserDAO {
         User user = null;
 
         String selection = DatabaseConstants.COLUMN_ID + " = ?";
-        String[] selectionArgs = { String.valueOf(userId) };
+        String[] selectionArgs = {String.valueOf(userId)};
 
         try (Cursor cursor = database.query(
                 DatabaseConstants.TABLE_USERS,
@@ -158,7 +157,7 @@ public class UserDAO {
         }
 
         String whereClause = DatabaseConstants.COLUMN_ID + " = ?";
-        String[] whereArgs = { String.valueOf(user.getId()) };
+        String[] whereArgs = {String.valueOf(user.getId())};
 
         int rowsAffected = database.update(DatabaseConstants.TABLE_USERS, values, whereClause, whereArgs);
         if (rowsAffected > 0) {
@@ -178,7 +177,7 @@ public class UserDAO {
      */
     public int deleteUser(User user) {
         String whereClause = DatabaseConstants.COLUMN_ID + " = ?";
-        String[] whereArgs = { String.valueOf(user.getId()) };
+        String[] whereArgs = {String.valueOf(user.getId())};
 
         int rowsAffected = database.delete(DatabaseConstants.TABLE_USERS, whereClause, whereArgs);
         if (rowsAffected > 0) {
@@ -201,7 +200,7 @@ public class UserDAO {
         User user = null;
 
         String selection = DatabaseConstants.COLUMN_USER_EMAIL + " = ?";
-        String[] selectionArgs = { email };
+        String[] selectionArgs = {email};
 
         try (Cursor cursor = database.query(
                 DatabaseConstants.TABLE_USERS,
@@ -234,5 +233,6 @@ public class UserDAO {
 
         return user;
     }
+
 
 }

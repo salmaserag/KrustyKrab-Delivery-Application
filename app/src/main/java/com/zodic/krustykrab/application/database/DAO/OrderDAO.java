@@ -5,7 +5,6 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
-
 import com.zodic.krustykrab.application.database.DatabaseConstants;
 import com.zodic.krustykrab.application.database.DatabaseHelper;
 import com.zodic.krustykrab.application.models.Order;
@@ -55,7 +54,7 @@ public class OrderDAO {
         Order order = null;
 
         String selection = DatabaseConstants.COLUMN_ID + " = ?";
-        String[] selectionArgs = { String.valueOf(orderId) };
+        String[] selectionArgs = {String.valueOf(orderId)};
 
         Cursor cursor = database.query(
                 DatabaseConstants.TABLE_ORDERS,
@@ -131,7 +130,7 @@ public class OrderDAO {
         values.put(DatabaseConstants.COLUMN_ORDER_USER_ID, order.getUser().getId());
 
         String whereClause = DatabaseConstants.COLUMN_ID + " = ?";
-        String[] whereArgs = { String.valueOf(order.getId()) };
+        String[] whereArgs = {String.valueOf(order.getId())};
 
         int rowsAffected = database.update(DatabaseConstants.TABLE_ORDERS, values, whereClause, whereArgs);
         if (rowsAffected > 0) {
@@ -151,7 +150,7 @@ public class OrderDAO {
      */
     public int deleteOrder(Order order) {
         String whereClause = DatabaseConstants.COLUMN_ID + " = ?";
-        String[] whereArgs = { String.valueOf(order.getId()) };
+        String[] whereArgs = {String.valueOf(order.getId())};
 
         int rowsAffected = database.delete(DatabaseConstants.TABLE_ORDERS, whereClause, whereArgs);
         if (rowsAffected > 0) {
@@ -162,4 +161,5 @@ public class OrderDAO {
 
         return rowsAffected;
     }
+
 }
