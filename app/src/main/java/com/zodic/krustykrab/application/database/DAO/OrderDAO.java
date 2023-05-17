@@ -40,6 +40,12 @@ public class OrderDAO {
         long orderId = database.insert(DatabaseConstants.TABLE_ORDERS, null, values);
         Log.d(TAG, "Added new order with ID: " + orderId);
 
+        // Add order products to the OrderProductDAO
+        for (OrderProduct orderProduct : order.getOrderProducts()) {
+            orderProduct.setOrder(order);
+            orderProductDAO.addOrderProduct(orderProduct);
+        }
+
         return orderId;
     }
 
@@ -129,7 +135,7 @@ public class OrderDAO {
         ContentValues values = new ContentValues();
         values.put(DatabaseConstants.COLUMN_ORDER_USER_ID, order.getUser().getId());
 
-        String whereClause = DatabaseConstants.COLUMN_ID + " = ?";
+        String whereClause = DatabaseConstants.COLUMN_ORDER_ID + " = ?";
         String[] whereArgs = {String.valueOf(order.getId())};
 
         int rowsAffected = database.update(DatabaseConstants.TABLE_ORDERS, values, whereClause, whereArgs);
@@ -149,7 +155,7 @@ public class OrderDAO {
      * @return The number of rows affected by the delete operation.
      */
     public int deleteOrder(Order order) {
-        String whereClause = DatabaseConstants.COLUMN_ID + " = ?";
+        String whereClause = DatabaseConstants.COLUMN_ORDER_ID + " = ?";
         String[] whereArgs = {String.valueOf(order.getId())};
 
         int rowsAffected = database.delete(DatabaseConstants.TABLE_ORDERS, whereClause, whereArgs);
@@ -161,5 +167,4 @@ public class OrderDAO {
 
         return rowsAffected;
     }
-
 }
