@@ -194,6 +194,7 @@ public class UserDAO {
      *
      * @param email The email of the user to retrieve.
      * @return The User object with the specified email, or null if not found.
+     * @throws java.sql.SQLException if no user with the specified email is found.
      */
     @SuppressLint("Range")
     public User getUserByEmail(String email) {
