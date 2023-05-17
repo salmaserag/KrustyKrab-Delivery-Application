@@ -8,7 +8,7 @@ import com.zodic.krustykrab.application.models.Role;
 import com.zodic.krustykrab.application.models.User;
 
 public class AuthenticationManager {
-    private UserDAO userDAO;
+    private final UserDAO userDAO;
 
     /**
      * Constructs an AuthenticationManager with the specified UserDAO.
@@ -29,7 +29,22 @@ public class AuthenticationManager {
      * @return The newly registered User object, or null if registration failed.
      */
     public User register(String name, String email, String password, Role role) {
+        return register(name, email, password, "", role);
+    }
+
+    /**
+     * Registers a new user with the provided information.
+     *
+     * @param name     The name of the user.
+     * @param email    The email of the user.
+     * @param password The password of the user.
+     * @param address  The address of the user.
+     * @param role     The role of the user.
+     * @return The newly registered User object, or null if registration failed.
+     */
+    public User register(String name, String email, String password, String address, Role role) {
         User newUser = new User(name, email, password, role);
+        newUser.setAddress(address);
         long userId = userDAO.addUser(newUser);
 
         if (userId != -1) {
