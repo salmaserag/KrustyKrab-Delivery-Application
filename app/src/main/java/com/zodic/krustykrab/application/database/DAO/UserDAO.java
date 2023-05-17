@@ -1,4 +1,4 @@
-package com.zodic.krustykrab.database.DAO;
+package com.zodic.krustykrab.application.database.DAO;
 
 import android.annotation.SuppressLint;
 import android.content.ContentValues;
@@ -6,10 +6,10 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import com.zodic.krustykrab.application.database.DatabaseHelper;
 import com.zodic.krustykrab.application.models.Role;
 import com.zodic.krustykrab.application.models.User;
-import com.zodic.krustykrab.database.DatabaseConstants;
-import com.zodic.krustykrab.database.DatabaseHelper;
+import com.zodic.krustykrab.application.database.DatabaseConstants;
 
 import java.util.ArrayList;
 import java.util.List;

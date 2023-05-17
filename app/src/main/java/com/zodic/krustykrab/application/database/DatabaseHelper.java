@@ -1,4 +1,4 @@
-package com.zodic.krustykrab.database;
+package com.zodic.krustykrab.application.database;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
