@@ -5,12 +5,12 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
-
+import com.zodic.krustykrab.application.database.DatabaseConstants;
 import com.zodic.krustykrab.application.database.DatabaseHelper;
+import com.zodic.krustykrab.application.models.Category;
 import com.zodic.krustykrab.application.models.Order;
 import com.zodic.krustykrab.application.models.OrderProduct;
 import com.zodic.krustykrab.application.models.Product;
-import com.zodic.krustykrab.application.database.DatabaseConstants;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -228,4 +228,73 @@ public class OrderProductDAO {
 
         return orderProducts;
     }
+
+    /**
+     * Retrieve all products for a specific user from the database.
+     *
+     * @param userId The ID of the user.
+     * @return A list of Product objects ordered by the user.
+     */
+    @SuppressLint("Range")
+    public List<Product> getProductsByUser(long userId) {
+        List<Product> products = new ArrayList<>();
+
+        // Define the columns to retrieve from the table
+        String[] projection = {
+                DatabaseConstants.COLUMN_ID,
+                DatabaseConstants.COLUMN_PRODUCT_NAME,
+                DatabaseConstants.COLUMN_PRODUCT_INGREDIENTS,
+                DatabaseConstants.COLUMN_PRODUCT_PRICE,
+                DatabaseConstants.COLUMN_PRODUCT_CATEGORY,
+                DatabaseConstants.COLUMN_PRODUCT_IMAGE
+        };
+
+        // Define the selection criteria for the query
+        String selection =
+                DatabaseConstants.TABLE_ORDERS + "." + DatabaseConstants.COLUMN_ORDER_USER_ID + " = ?";
+
+        // Define the selection arguments
+        String[] selectionArgs = {String.valueOf(userId)};
+
+
+        // Execute the query
+        Cursor cursor = database.query(
+                DatabaseConstants.TABLE_PRODUCTS,    // Table name
+                projection,                          // Columns to retrieve
+                selection,                           // Selection criteria
+                selectionArgs,                       // Selection arguments
+                null,                                // Group by
+                null,                                // Having
+                null                            // Sort order
+        );
+
+        // Process the query results
+        if (cursor != null && cursor.moveToFirst()) {
+            do {
+                // Retrieve column values from the cursor
+                long productId = cursor.getLong(cursor.getColumnIndex(DatabaseConstants.COLUMN_ID));
+                String name = cursor.getString(cursor.getColumnIndex(DatabaseConstants.COLUMN_PRODUCT_NAME));
+                String ingredients = cursor.getString(cursor.getColumnIndex(DatabaseConstants.COLUMN_PRODUCT_INGREDIENTS));
+                double price = cursor.getDouble(cursor.getColumnIndex(DatabaseConstants.COLUMN_PRODUCT_PRICE));
+                String categoryString = cursor.getString(cursor.getColumnIndex(DatabaseConstants.COLUMN_PRODUCT_CATEGORY));
+                Category category = Category.valueOf(categoryString);
+                String imagePath = cursor.getString(cursor.getColumnIndex(DatabaseConstants.COLUMN_PRODUCT_IMAGE));
+
+                // Create a Product object from the column values
+                Product product = new Product(productId, name, ingredients, price, category, imagePath);
+
+                // Add the Product object to the list
+                products.add(product);
+            } while (cursor.moveToNext());
+        }
+
+        // Close the cursor
+        if (cursor != null) {
+            cursor.close();
+        }
+
+        // Return the list of products
+        return products;
+    }
+
 }
