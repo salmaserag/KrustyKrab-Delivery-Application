@@ -27,6 +27,8 @@ public class DatabaseConstants {
 
     // Orders table column names
     public static final String COLUMN_ORDER_USER_ID = "userId";
+    public static final String COLUMN_ORDER_ID = "id";
+
 
     // Order products table column names
     public static final String COLUMN_ORDER_PRODUCT_ORDER_ID = "orderId";
