@@ -1,5 +1,6 @@
 package com.zodic.krustykrab.application.models;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Order {
@@ -8,9 +9,11 @@ public class Order {
     private User user;
     private List<OrderProduct> orderProducts;
 
+
     public Order(User user, List<OrderProduct> orderProducts) {
         this.user = user;
         this.orderProducts = orderProducts;
+
     }
 
     public Order(long id, User user, List<OrderProduct> orderProducts) {
