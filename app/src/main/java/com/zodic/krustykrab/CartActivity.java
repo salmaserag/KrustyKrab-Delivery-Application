@@ -27,7 +27,7 @@ public class CartActivity extends AppCompatActivity {
     private RecyclerView.Adapter adapter;
     private RecyclerView recyclerViewlist;
     private OrderProduct orderProduct;
-    private TextView totalfeeTxt, deliveryTxt, taxTxt, totalTxt, minusTxt, plusTxt, numItem, checkout;
+    private static TextView totalfeeTxt, deliveryTxt, taxTxt, totalTxt, minusTxt, plusTxt, numItem, checkout;
     private double tax;
     private ScrollView scrollView;
 
@@ -88,7 +88,7 @@ public class CartActivity extends AppCompatActivity {
 
     }
 
-    Order cartOrder;
+    static Order cartOrder;
 
     private void createFakeData() {
         List<OrderProduct> cartProducts = new ArrayList<>();
@@ -114,7 +114,7 @@ public class CartActivity extends AppCompatActivity {
         customAdaper.notifyDataSetChanged();
     }
 
-    public void calculateCard() {
+    public static void calculateCard() {
 //
         double sum = 0.0;
         double tax = 0.1;

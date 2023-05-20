@@ -1,9 +1,11 @@
 package com.zodic.krustykrab;
 
 import android.content.Context;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -30,6 +32,8 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
         private final TextView plus ;
         private final TextView minus ;
 
+        private final ImageView pic_product ;
+
         public ViewHolder(View view) {
             super(view);
             // Define click listener for the ViewHolder's View
@@ -39,6 +43,8 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
             sum_Ofproduct = (TextView) view.findViewById(R.id.totalEachItem);
             plus = (TextView) view.findViewById(R.id.plustxt);
             minus = (TextView) view.findViewById(R.id.minustxt);
+            pic_product = (ImageView) view.findViewById(R.id.pic_product);
+
         }
         public TextView getPriceTV() {
             return price;
@@ -63,6 +69,11 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
         public TextView getMinusTV() {
             return minus;
         }
+
+        public ImageView getPic_productTV() {
+            return pic_product;
+        }
+
     }
 
     /**
@@ -87,18 +98,20 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
 
     // Replace the contents of a view (invoked by the layout manager)
     @Override
-    public void onBindViewHolder(ViewHolder viewHolder, final int position) {
+    public void onBindViewHolder(ViewHolder viewHolder, final int x) {
+        int position = viewHolder.getAdapterPosition();
+
 
         double priceitem = cartOrder.getOrderProducts().get(position).getProduct().getPrice();
         double quantityitem = cartOrder.getOrderProducts().get(position).getQuantity();
         double sum = priceitem * quantityitem;
-        // Get element from your dataset at this position and replace the
-        // contents of the view with that element
+
+
+        //viewHolder.getPic_productTV().setImageURI(Uri.parse(cartOrder.getOrderProducts().get(position).getProduct().getImagePath()));
         viewHolder.getTitleTV().setText(cartOrder.getOrderProducts().get(position).getProduct().getName());
         viewHolder.getPriceTV().setText("" + cartOrder.getOrderProducts().get(position).getProduct().getPrice());
         viewHolder.getQuantityTV().setText("" + cartOrder.getOrderProducts().get(position).getQuantity());
         viewHolder.getsumTV().setText("" + sum);
-
 
 
         viewHolder.getPlusTV().setOnClickListener(new View.OnClickListener() {
@@ -112,6 +125,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
 
                 viewHolder.getsumTV().setText("" + newQuantity * priceitem);
 
+                CartActivity.calculateCard();
             }
         });
 
@@ -126,6 +140,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
                 viewHolder.getQuantityTV().setText("" + newQuantity);
 
                 viewHolder.getsumTV().setText("" + newQuantity * priceitem);
+                CartActivity.calculateCard();
             }
         });
     }
